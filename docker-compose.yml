@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - SERVICES=s3,sqs
+      - AWS_ACCESS_KEY_ID=localstack-user
+      - AWS_SECRET_ACCESS_KEY=localstack-key
+      - AWS_DEFAULT_REGION=us-east-1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ./entrypoint-init:/docker-entrypoint-initaws.d
